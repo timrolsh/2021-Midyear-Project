@@ -15,7 +15,7 @@ class Human(Player):
 
             print("Invalid input. Proper input is 2 characters, first one is a letter, second one should be a number: "
                   "i.e(A1)")
-            ship_placement = input("Input coordinates to ship \t").upper()
+            ship_placement = input(message + "\t").upper()
 
         letter = ship_placement[0]
 
