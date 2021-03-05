@@ -1,3 +1,6 @@
+import pygame
+
+
 class Player(object):
 
     def __init__(self):
@@ -13,9 +16,17 @@ class Player(object):
         self.width = width
         self.height = height
 
-    def make_board(self):  # takes the empty list we made earlier and turns it into a board
-        for x in range(self.height):
+    def make_board(self, window, x, y):  # takes the empty list we made earlier and turns it into a board
+        for a in range(self.height):
             self.board.append([" "] * self.width)
+
+        width = 35
+        height = 20
+        for a in range(10):
+            for b in range(8):
+                pygame.draw.rect(window, (104, 110, 108), (x + b * 50, y, width, height))
+
+            y += 40
 
     def add_ship(self, x, y):  # updates an empty ship slot on the board to a full ship slot
         self.board[x][y] = "*"
