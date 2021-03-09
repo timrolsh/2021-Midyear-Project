@@ -16,17 +16,9 @@ class Player(object):
         self.width = width
         self.height = height
 
-    def make_board(self, window, x, y):  # takes the empty list we made earlier and turns it into a board
+    def make_board(self):  # takes the empty list we made earlier and turns it into a board
         for a in range(self.height):
             self.board.append([" "] * self.width)
-
-        width = 35
-        height = 20
-        for a in range(10):
-            for b in range(8):
-                pygame.draw.rect(window, (104, 110, 108), (x + b * 50, y, width, height))
-
-            y += 40
 
     def add_ship(self, x, y):  # updates an empty ship slot on the board to a full ship slot
         self.board[x][y] = "*"
@@ -39,7 +31,3 @@ class Player(object):
     def lost(self):  # returns True if the player's ship count is at 0, meaning all of their ships are destroyed
         if self.num_ships == 0:
             return True
-
-    def print_board(self):
-        for x in range(len(self.board)):
-            print(x, self.board[x], "\n")

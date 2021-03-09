@@ -1,36 +1,75 @@
 import pygame
+import sys
 
-pygame.init()  # always do this at the beginning of ur program)
-win = pygame.display.set_mode((1024, 768))  # sets ur window
-background = pygame.image.load("background main.png")
-pygame.display.set_caption("Battleship Game")  # names the window
+# initializing the constructor
+pygame.init()
 
+# screen resolution
+res = (720, 720)
 
-# btw all coords start from top left
-# main loop
+# opens up a window
+screen = pygame.display.set_mode(res)
 
-def make_board(x, y):
-    width = 35
-    height = 20
-    for a in range(10):
-        for b in range(8):
-            pygame.draw.rect(win, (104, 110, 108), (x + b * 50, y, width, height))
+# white color
+color = (255, 255, 255)
 
-        y += 40
+# light shade of the button
+color_light = (170, 170, 170)
 
+# dark shade of the button
+color_dark = (100, 100, 100)
 
+# stores the width of the
+# screen into a variable
+width = screen.get_width()
 
+# stores the height of the
+# screen into a variable
+height = screen.get_height()
 
+# defining a font
+smallfont = pygame.font.SysFont('Corbel', 35)
+
+# rendering a text written in
+# this font
+text = smallfont.render('quit', True, color)
 
 while True:
-    win.blit(background, (0, 0))
-    # pygame.time.delay(100)  # 100ms delay, 1000ms would be a full second, slows game down
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False  # stops the program when u hit the x
+
+    for ev in pygame.event.get():
+
+        if ev.type == pygame.QUIT:
             pygame.quit()
-    # pygame.draw.rect(win, (255, 0, 0), (x, y, width, height))  # this takes input and makes a rectangle
-    make_board(47, 200)
-    make_board(594, 200)
+
+        # checks if a mouse is clicked
+        if ev.type == pygame.MOUSEBUTTONDOWN:
+
+            # if the mouse is clicked on the
+            # button the game is terminated
+            if width / 2 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
+                pygame.quit()
+
+            # fills the screen with a color
+    screen.fill((60, 25, 60))
+
+    # stores the (x,y) coordinates into
+    # the variable as a tuple
+    mouse = pygame.mouse.get_pos()
+    print(mouse)
+
+    # if mouse is hovered on a button it
+    # changes to lighter shade
+    if width / 2 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
+        pygame.draw.rect(screen, color_light, [width / 2, height / 2, 140, 40])
+
+    else:
+        pygame.draw.rect(screen, color_dark, [width / 2, height / 2, 140, 40])
+
+    # superimposing the text onto our button
+    screen.blit(text, (width / 2 + 50, height / 2))
+
+    # updates the frames of the game
     pygame.display.update()
-    # pygame.display.update()  # actually shows the rectangle on the screen, updates ur display
+
+# 62, 211
+# 47, 200

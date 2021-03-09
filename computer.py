@@ -1,5 +1,7 @@
 import random
 
+import pygame
+
 from player import Player
 
 
@@ -8,9 +10,6 @@ class Computer(Player):
     def __init__(self):
         super().__init__()
         # etc.
-
-        fired_here = []
-        self.fired_here = fired_here
 
     def place_battleships(self):
 
@@ -29,18 +28,14 @@ class Computer(Player):
 
         return [x, y]
 
-    def random_attack(self, human):
-        random_attack = self.get_coords()
-        while random_attack in self.fired_here:
-            random_attack = self.get_coords()
-        print("The computer has fired at " + str(chr(random_attack[0] + ord("A"))) + str(random_attack[1]))
-        if human.board[random_attack[0]][random_attack[1]] == "*":
-            human.remove_ship(random_attack[0], random_attack[1])
-            print("The computer has hit one of your ships! You still have", human.num_ships, "remaining.")
-
-        else:
-            print("The computer has missed your ship.")
-
-        self.fired_here.append(random_attack)
-
-
+    def draw_board(self, window):
+        y = 200
+        for a in self.board:
+            for b in range(len(a)):
+                if a[b] == "f":  # TODO this might not work check it
+                    window.blit(pygame.image.load("went_here.png"), (597 + b * 50, y))
+                elif a[b] == "b":
+                    window.blit(pygame.image.load("broken_ship.png"), (597 + b * 50, y))
+                else:
+                    window.blit(pygame.image.load("unknown.png"), (597 + b * 50, y))
+            y += 40
